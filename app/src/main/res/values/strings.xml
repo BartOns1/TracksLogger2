@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Tracks Logger</string>
+    <string name="no_coordinates">No Coordinates!</string>
+    <string name="start_capturing_geocoordinates">Start Capturing Location</string>
+    <string name="stop_capturing_geocoordinates">Stop Capturing Location</string>
+    <string name="google_map_key">AIzaSyBvqVBvWAak2PLh0YEEwWHx780LEXX72kk</string>
+    <string name="register_label">Test</string>
+    <string name="quit">Quit</string>
+</resources>
