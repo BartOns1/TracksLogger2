@@ -6,4 +6,8 @@
     <string name="google_map_key">AIzaSyBvqVBvWAak2PLh0YEEwWHx780LEXX72kk</string>
     <string name="register_label">Test</string>
     <string name="quit">Quit</string>
+    <string name="enter_groupName_request">Your group name</string>
+    <string name="enter_trackName_request">Choose a name to label your geo Locations</string>
+    <string name="join_your_group">JOIN YOUR GROUP</string>
+    <string name="submit">Submit</string>
 </resources>

@@ -1,5 +1,8 @@
 package bbsource.trackslogger.domain;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +29,16 @@ public class Participant {
     public void setColor(String color) {
         this.color = color;
     }
+
     public Participant(){}
-    public Participant(String label, String traceRecord) {
 
+    public Participant(String label) {
         this.label = label;
-        this.traceRecord = traceRecord;
+    }
 
+    public Participant(String label, String groupName){
+        this(label);
+        this.group = new Group(groupName);
     }
 
     public String getLabel() {
@@ -58,6 +65,34 @@ public class Participant {
         this.coordinates = coordinates;
         return null;
     }
+
+    public String getGroupName(){
+        return this.getGroup().getGroupName();
+    }
+
+
+    public Group getGroup() {
+        return group;
+    }
+
+
+    public JSONObject toJSON() {
+
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("label", this.getLabel());
+            jo.put("group", this.getGroup().toJSON());
+            jo.put("color", this.getColor());
+            //jo.put("traceRecord", this.getTraceRecord());
+            //jo.put("coordinates", this.getCoordinates());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jo;
+    }
+
+
+
 
     @Override
     public boolean equals(Object o) {

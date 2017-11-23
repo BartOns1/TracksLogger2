@@ -31,12 +31,15 @@ public final class DataReceiveParser {
 
     public static void jSonParser(String groupName){
 
+         final List<Participant> participants = AppController.getInstance().getParticipants();
+
+
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                 "http://172.30.68.13:8080/api/group/"+ groupName + "/participants", null  ,new Response.Listener<JSONArray>(){
             //IP van de vdab veranderen in 102.0.2... of zoiets  http://172.30.68.18:8080/api/group/Knights%20saying%20NI/participants
             @Override
             public void onResponse(JSONArray response){
-               Log.d("Response", response.toString());
+
                 String info;
                 try {
                    // Log.i("aantal in response", String.valueOf(response.length()));
@@ -45,7 +48,7 @@ public final class DataReceiveParser {
                         String participantName = sensingParticipant.getString("label");
 
 
-                        Participant participant = new Participant(participantName, "logfileTODO");
+                        Participant participant = new Participant(participantName);
                         JSONArray coords = sensingParticipant.getJSONArray("coordinates");
                         // Log.i("check if coordinates are read from jsonobject", coords.toString());
                         List<Coordinate> coordinates = new ArrayList<>();
@@ -69,11 +72,11 @@ public final class DataReceiveParser {
                     //check nu of de participant al bestaat in de unieke(static) lokale participants-collection. zo niet: voeg toe, zowel update deze. Het is deze participantslijst die bijgehouden wordt over methdoen heen doordat het static is
 
                         //contains roept equalsmethode aan die je hebt overschreven bij de definitie van de klasse participant
-                        List<Participant> participants = AppController.getInstance().getParticipants();
+
                         if (participants.contains(participant)){
                             int participantIndex=participants.indexOf(participant);
                             //Update coordinates depending wether person already exist with some coordinates(IF-clause) or not(ELSE-clause)
-                            if (participants !=null){
+                            if (!participants.isEmpty()){
                                 if (coords != null) {
 
                                   //  Log.i("participants.get(i).getCoordinates().size()", String.valueOf(participants.get(i).getCoordinates().size()));
@@ -81,18 +84,26 @@ public final class DataReceiveParser {
                                     //assume that coords from http request always larger then coords from local participant
 
                                         int startIndex = participants.get(participantIndex).getCoordinates().size();
+                                       // Log.d("startindex", String.valueOf(startIndex));
                                         int endIndex = coordinates.size();
+                                       // Log.d("stopindex", String.valueOf(endIndex));
+                                        if (startIndex<=endIndex){
                                         participants.get(participantIndex).getCoordinates().addAll(startIndex,coordinates.subList(startIndex,endIndex));
+                                        }
 
                                 } else {
+                                    Log.d("in het begin zouden we hier moeten komen", "");
                                 participant.setCoordinates(coordinates);
                              }
                             }
                         } else {
                             participants.add(participant);
                         }
+
                     }
 
+                    Log.d("PARTICIPANTS", participants.get(participants.size()-1).getCoordinates().toString());
+                    AppController.getInstance().setParticipants(participants);
                     AppController.getInstance().notifyObservers();
                         ;
 

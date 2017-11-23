@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="bbsource.trackslogger.RegisterActivity">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/title"
+        android:text="@string/join_your_group"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24dp"
+        android:textAlignment="center"
+        android:padding="8dp"
+        />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:layout_gravity="center"
+            android:tint="@color/colorPrimary"
+            />
+
+        <EditText
+            android:id="@+id/groupName"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:paddingLeft="16dp"
+            android:hint="@string/enter_groupName_request"
+            android:textSize="16dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_below="@id/groupName">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit_black_24dp"
+            android:layout_gravity="center"
+            android:tint="@color/colorPrimary"
+            />
+
+        <EditText
+            android:id="@+id/trackName"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:paddingLeft="16dp"
+            android:hint="@string/enter_trackName_request"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_gravity="center_horizontal"
+        />
+
+    </LinearLayout>
+
+
+

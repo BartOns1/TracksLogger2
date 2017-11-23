@@ -1,5 +1,10 @@
 package bbsource.trackslogger.domain;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -51,4 +56,18 @@ public class Coordinate {
                 ", time=" + timeStamp + ", latitude=" + latitude + ", longitude= " + longitude + "}";
     }
 
+    public JSONObject toJSON() {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("latitude",  this.getLatitude());
+            jo.put("longitude", this.getLongitude());
+            jo.put("timeStamp", this.getTime());
+        } catch (JSONException e)
+        {
+            e.printStackTrace();
+
+        }
+        Log.d("Coordinate Json", jo.toString());
+        return jo;
+    }
 }

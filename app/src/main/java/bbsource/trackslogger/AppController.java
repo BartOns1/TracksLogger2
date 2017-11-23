@@ -84,6 +84,10 @@ public class AppController extends Application{
         }
     }
 
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
     public List<Participant> getParticipants() {
         return participants;
     }

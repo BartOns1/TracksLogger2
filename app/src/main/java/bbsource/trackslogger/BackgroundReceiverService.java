@@ -2,6 +2,8 @@ package bbsource.trackslogger;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -20,13 +22,15 @@ import bbsource.trackslogger.domain.Participant;
 
 public class BackgroundReceiverService extends Service {
 
-    String groupName = "Knights saying NI";//TODO
 
-    private Timer timer;
 
+    private static Timer timer;
+    String groupName;
     public BackgroundReceiverService() {
         super();
     }
+
+
 
 
     @Nullable
@@ -41,6 +45,7 @@ public class BackgroundReceiverService extends Service {
         Toast.makeText(getApplicationContext(), "ReceiverService Created", Toast.LENGTH_SHORT).show();
         super.onCreate();
 
+
         Log.i("BackgroundService", "created backgroundservice");
 
         if (timer != null) {
@@ -48,8 +53,6 @@ public class BackgroundReceiverService extends Service {
         } else {
             timer = new Timer();
         }
-
-        timer.scheduleAtFixedRate(new FetchParticipantsTimer(), 0, 5000);
         //
     }
 
@@ -59,6 +62,15 @@ public class BackgroundReceiverService extends Service {
         Toast.makeText(getApplicationContext(), "ReceiverService Started", Toast.LENGTH_SHORT).show();
         Log.i("BackgroundService", "starting backgroundservice");
 
+        // todo read extra's from intent
+        if (intent.getExtras()!=null){
+            groupName = intent.getExtras().getString("groupName");
+            Log.i("check name in service receive", groupName);
+        }
+
+
+
+        timer.scheduleAtFixedRate(new FetchParticipantsTimer(), 0, 10000);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -75,9 +87,6 @@ public class BackgroundReceiverService extends Service {
         @Override
         public void run() {
             DataReceiveParser.jSonParser(groupName);
-
-
-
         }
     }
 
